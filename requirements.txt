@@ -1,0 +1,11 @@
+streamlit==1.38.0
+flask==3.0.3
+torch==2.4.1
+re
+langchain==0.3.1
+langchain-community==0.3.1
+kiwipiepy==0.18.1
+faiss-cpu==1.8.0.post1
+huggingface-hub==0.25.1
+PyMuPDF==1.24.10
+
