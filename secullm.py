@@ -4,6 +4,7 @@ import os, torch
 import re
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import PyMuPDFLoader
+from loguru import logger      #log 사용 
 
 
 from langchain_community.vectorstores import FAISS
@@ -184,6 +185,23 @@ def create_rag_chain(retriever, llm, prompt_template):
 
     return {"context": retriever, "question": RunnablePassthrough()} | prompt | llm | StrOutputParser()
  
+def get_text(docs):
+    doc_list = []
+
+    for doc in docs:
+       file_name = doc.name  # doc 객체의 이름을 파일 이름으로 사용
+       with open(file_name, "wb") as file:  # 파일을 doc.name으로 저장
+           file.write(doc.getvalue())
+           logger.info(f"Uploaded {file_name}")
+           
+       if '.pdf' in doc.name:
+           loader = PyPDFLoader(file_name)
+           documents = loader.load_and_split()
+           
+       doc_list.extend(documents)
+       
+    return doc_list 
+ 
 # Streamlit UI
 
 def run_streamlit_app():
@@ -219,7 +237,7 @@ if __name__ == "__main__":
     #docs = load_pdf_and_split('/projects/secuLLM/secullm/r_gain_info.pdf')
     
     #전처리+청크화 추가한 기존에 모듈화 시킨 코드 
-    docs = load_and_preprocess_documents('r_gain_info.pdf')
+    docs = load_and_preprocess_documents('/projects/secuLLM/secullm/r_gain_info.pdf')
     
     st.write('pdf 파일 로드 및 청크 처리 완료')
 
