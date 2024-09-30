@@ -26,7 +26,7 @@ os.environ["LANGCHAIN_PROJECT"] = "test_streamlit"
 ######################################################## 
 
 app = Flask(__name__)
-
+@st.cache_data
 # 데이터 문서 로드 및 전처리 함수
 def load_and_preprocess_documents(filepath):
     loader = PyMuPDFLoader(filepath)
