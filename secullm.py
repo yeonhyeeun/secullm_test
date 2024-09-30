@@ -237,7 +237,12 @@ if __name__ == "__main__":
     #docs = load_pdf_and_split('/projects/secuLLM/secullm/r_gain_info.pdf')
     
     #전처리+청크화 추가한 기존에 모듈화 시킨 코드 
-    docs = load_and_preprocess_documents('/projects/secuLLM/secullm/r_gain_info.pdf')
+    # docs = load_and_preprocess_documents('/projects/secuLLM/secullm/r_gain_info.pdf')
+
+    # GitHub Raw URL로 파일 경로 수정
+    file_path = "https://raw.githubusercontent.com/yeonhyeeun/secullm_test/main/r_gain_info.pdf"
+    docs = load_and_preprocess_documents(file_path)
+
     
     st.write('pdf 파일 로드 및 청크 처리 완료')
 
